@@ -64,25 +64,29 @@ class Inventory:
         self.stock_label_output.grid(row=4, columnspan=2)
 
         # Edit widgets
-        self.output_label = Label(self.edit_frame, text="Display Information", width=WD1, bg=BGCOLOUR)
+        self.output_label = Label(self.edit_frame, text="Edit Information", width=WD1, bg=BGCOLOUR)
         self.output_label.grid(row=0, column=0)
         self.output_input_btn = Button(self.edit_frame, text="Add Information", command=self.add_information, width=WD1)
         self.output_input_btn.grid(row=0, column=1)
         # edit_option.grid(row=1, column=0)
         number_label = Label(self.edit_frame, text="Number: ", width=WD1, bg=BGCOLOUR)
         number_label.grid(row=2, column=0)
-        number_entry = Entry(self.edit_frame, text="Display Information", width=WD1, bg=BGCOLOUR)
-        number_entry.grid(row=2, column=1)
+        number_box = Spinbox(self.edit_frame, from_=1, to=100 width=WD1, bg=BGCOLOUR)
+        number_box.grid(row=2, column=1)
         sell_btn = Button(self.edit_frame, text="Sell", command=self.sell_item, width=WD1)
         sell_btn.grid(row=3, column=0)
         restock_btn = Button(self.edit_frame, text="Restock", command=self.restock_item, width=WD1)
         restock_btn.grid(row=3, column=1)
     
     def sell_item(self):
-        pass
+        for item in self.items:
+            if item.name == edit_option_var.get():
+                item.stock -= number_box.get()
 
     def restock_item(self):
-        pass
+        for item in self.items:
+            if item.name == edit_option_var.get():
+                item.stock += number_box.get()
 
 
     def save_data(self):
@@ -122,6 +126,7 @@ class Inventory:
     def input_edit(self):
         self.input_frame.grid_forget()
         self.edit_frame.grid()
+        self.edit_option_var.set("Select an item")
         # find way to initiate with other widgets because why it it here
         self.edit_option = OptionMenu(self.edit_frame, self.display_option_var, *self.item_names)
         self.edit_option.grid(row=1, column=0)
